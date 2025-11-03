@@ -50,7 +50,7 @@ void suggestAlternateRoutes(Graph *g, const char *src, const char *dest) {
         printf("Invalid cities!\n");
         return;
     }
-    printf("\nSuggested alternate route from %s to %s (via BFS simulation):\n", src, dest);
+    printf("\nSuggested route from %s to %s (via BFS simulation):\n", src, dest);
     
     int visited[MAX_CITIES] = {0};
     int parent[MAX_CITIES];

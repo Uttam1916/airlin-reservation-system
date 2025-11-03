@@ -2,7 +2,7 @@
 #define GRAPH_H
 
 #define MAX_CITIES 20
-#define INF 999
+#define INF 99999
 
 typedef struct{
     int numCities;
