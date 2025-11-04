@@ -1,22 +1,32 @@
 #ifndef HASH_H
 #define HASH_H
 
-#define TABLE_SIZE 20
+#include "utils.h"
+
+typedef struct BookingRec {
+    char flightName[MAX_NAME_LEN];
+    int seatNo;
+} BookingRec;
 
 typedef struct Passenger {
-    int id;
-    char name[50];
-    char flight[30];
+    PassengerID pid;
+    char name[MAX_NAME_LEN];
+    char phone[MAX_PHONE_LEN];
+    BookingRec booking;
     struct Passenger *next;
 } Passenger;
 
-Passenger* hashTable[TABLE_SIZE];
+typedef struct {
+    Passenger **buckets;
+    int size;
+} HashTable;
 
-void initHashTable();
-int hashFunction(int id);
-void insertPassenger(int id, const char *name, const char *flight);
-void searchPassenger(int id);
-void deletePassenger(int id);
-void displayHashTable();
+HashTable *ht_create(int size);
+void ht_free(HashTable *ht);
+int ht_insert(HashTable *ht, PassengerID pid, const char *name, const char *phone);
+Passenger *ht_find(HashTable *ht, PassengerID pid);
+int ht_remove(HashTable *ht, PassengerID pid);
+int ht_update_booking(HashTable *ht, PassengerID pid, const char *flightName, int seatNo);
+void ht_display(HashTable *ht);
 
 #endif
