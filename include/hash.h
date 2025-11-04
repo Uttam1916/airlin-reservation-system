@@ -1,9 +1,9 @@
 #ifndef HASH_H
 #define HASH_H
-
 #include "utils.h"
 
 typedef struct BookingRec {
+    int flightId;
     char flightName[MAX_NAME_LEN];
     int seatNo;
 } BookingRec;
@@ -26,7 +26,7 @@ void ht_free(HashTable *ht);
 int ht_insert(HashTable *ht, PassengerID pid, const char *name, const char *phone);
 Passenger *ht_find(HashTable *ht, PassengerID pid);
 int ht_remove(HashTable *ht, PassengerID pid);
-int ht_update_booking(HashTable *ht, PassengerID pid, const char *flightName, int seatNo);
+int ht_update_booking(HashTable *ht, PassengerID pid, int flightId, const char *flightName, int seatNo);
 void ht_display(HashTable *ht);
 
 #endif
