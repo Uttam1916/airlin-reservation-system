@@ -3,18 +3,32 @@
 
 #include "queue.h"
 #include "hash.h"
+#include "graph.h"
 
-#define MAX_SEATS 5
+#define MAX_FLIGHTS 200
 
 typedef struct {
-    char flightName[30];
-    int availableSeats;
-    Queue waitingList;
+    int id;
+    char name[MAX_NAME_LEN];
+    int srcIdx;
+    int destIdx;
+    int capacity;
+    int booked;
+    Queue waitlist;
 } Flight;
 
-void initFlight(Flight *f, const char *name);
-void bookTicket(Flight *f, int id, const char *name);
-void cancelTicket(Flight *f, int id);
-void displayFlightStatus(Flight *f);
+typedef struct {
+    Flight flights[MAX_FLIGHTS];
+    int n;
+} FlightDB;
+
+void flightdb_init(FlightDB *db);
+int  flightdb_add(FlightDB *db, Graph *g, int id, const char *name, const char *src, const char *dest, int capacity);
+Flight* flightdb_get(FlightDB *db, int id);
+void flightdb_list(FlightDB *db, Graph *g);
+
+int book_ticket(FlightDB *db, HashTable *ht, int flightId, PassengerID pid, const char *name, const char *phone);
+int cancel_ticket(FlightDB *db, HashTable *ht, int flightId, PassengerID pid);
+void flight_status(FlightDB *db, HashTable *ht, int flightId);
 
 #endif

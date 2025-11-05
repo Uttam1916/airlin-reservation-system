@@ -1,21 +1,21 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#define MAX_CITIES 20
-#define INF 99999
+#include "utils.h"
 
-typedef struct{
+typedef struct {
     int numCities;
-    int cityNames[MAX_CITIES][30];
     int adjMatrix[MAX_CITIES][MAX_CITIES];
+    char cityNames[MAX_CITIES][MAX_NAME_LEN];
 } Graph;
 
 void initGraph(Graph *g);
-void addCity(Graph *g, const char *name);
-void addRoute(Graph *g, const char *src, const char *dest, int distance);
+int addCity(Graph *g, const char *name);
 int getCityIndex(Graph *g, const char *name);
+void addRoute(Graph *g, const char *src, const char *dest, int distance);
 void displayRoutes(Graph *g);
 void suggestAlternateRoutes(Graph *g, const char *src, const char *dest);
-
+void find_all_paths(Graph *g, const char *src, const char *dest);
+void dijkstra_shortest_path(Graph *g, const char *src, const char *dest);
 
 #endif
