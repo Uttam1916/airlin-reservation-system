@@ -3,19 +3,22 @@
 
 #include "utils.h"
 
-typedef struct {
+typedef struct Graph {
     int numCities;
-    int adjMatrix[MAX_CITIES][MAX_CITIES];
     char cityNames[MAX_CITIES][MAX_NAME_LEN];
+    int adjMatrix[MAX_CITIES][MAX_CITIES];   /* distance in km, INF = no edge */
 } Graph;
 
+/* Graph operations */
 void initGraph(Graph *g);
 int addCity(Graph *g, const char *name);
 int getCityIndex(Graph *g, const char *name);
 void addRoute(Graph *g, const char *src, const char *dest, int distance);
 void displayRoutes(Graph *g);
+
+/* Path / route helpers */
 void suggestAlternateRoutes(Graph *g, const char *src, const char *dest);
 void find_all_paths(Graph *g, const char *src, const char *dest);
 void dijkstra_shortest_path(Graph *g, const char *src, const char *dest);
 
-#endif
+#endif /* GRAPH_H */
