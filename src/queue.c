@@ -2,14 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Initialize an empty priority queue */
 void queue_init(Queue *q) {
     q->head = NULL;
     q->tail = NULL;
     q->size = 0;
 }
 
-/* Free all nodes */
 void queue_free(Queue *q) {
     QNode *cur = q->head;
     while (cur) {
@@ -22,11 +20,6 @@ void queue_free(Queue *q) {
     q->size = 0;
 }
 
-/*
- Insert passenger sorted by priority (descending)
- Higher priority → earlier in queue
- If two passengers have same priority → FIFO ordering
-*/
 int queue_enqueue(Queue *q, PassengerID pid, const char *name, int priority) {
     QNode *node = malloc(sizeof(QNode));
     if (!node) return -1;
@@ -37,12 +30,10 @@ int queue_enqueue(Queue *q, PassengerID pid, const char *name, int priority) {
     node->priority = priority;
     node->next = NULL;
 
-    /* Case 1: empty queue */
     if (!q->head) {
         q->head = q->tail = node;
     }
     else {
-        /* Insert at head if highest priority */
         if (priority > q->head->priority) {
             node->next = q->head;
             q->head = node;
@@ -68,7 +59,6 @@ int queue_enqueue(Queue *q, PassengerID pid, const char *name, int priority) {
     return 0;
 }
 
-/* Remove head (highest priority) */
 int queue_dequeue(Queue *q, PassengerID *out_pid, char *out_name) {
     if (!q->head) return -1;
 

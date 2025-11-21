@@ -7,7 +7,7 @@ typedef struct BookingInfo {
     int flightId;
     char flightName[MAX_NAME_LEN];
     int seatNo;
-    char depart_time[32];   /* "YYYY-MM-DD HH:MM" */
+    char depart_time[32];  
 } BookingInfo;
 
 typedef struct Passenger {
@@ -15,7 +15,7 @@ typedef struct Passenger {
     char name[MAX_NAME_LEN];
     char phone[MAX_PHONE_LEN];
     BookingInfo booking;
-    int points_balance;      /* frequent flyer points */
+    int points_balance;     
     struct Passenger *next;
 } Passenger;
 
@@ -24,7 +24,6 @@ typedef struct HashTable {
     int size;
 } HashTable;
 
-/* Hash operations */
 HashTable *ht_create(int size);
 void ht_free(HashTable *ht);
 
@@ -41,4 +40,4 @@ void ht_display(HashTable *ht);
 int ht_add_points(HashTable *ht, PassengerID pid, int points);
 int ht_get_points(HashTable *ht, PassengerID pid);
 
-#endif /* HASH_H */
+#endif 

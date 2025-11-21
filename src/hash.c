@@ -31,11 +31,9 @@ void ht_free(HashTable *ht) {
     free(ht);
 }
 
-/* Insert a passenger if not already present */
 int ht_insert(HashTable *ht, PassengerID pid, const char *name, const char *phone) {
     int h = hash_func(ht, pid);
 
-    /* Prevent duplicate PID */
     Passenger *chk = ht->buckets[h];
     while (chk) {
         if (chk->pid == pid) return 0;
@@ -132,7 +130,6 @@ void ht_display(HashTable *ht) {
     }
 }
 
-/* Add frequent flyer points */
 int ht_add_points(HashTable *ht, PassengerID pid, int points) {
     Passenger *p = ht_find(ht, pid);
     if (!p) return -1;

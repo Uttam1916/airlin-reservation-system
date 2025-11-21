@@ -52,7 +52,6 @@ void displayRoutes(Graph *g) {
     }
 }
 
-/* BFS shortest-by-hops path */
 void suggestAlternateRoutes(Graph *g, const char *src, const char *dest) {
     int s = getCityIndex(g, src);
     int d = getCityIndex(g, dest);
@@ -106,7 +105,6 @@ void suggestAlternateRoutes(Graph *g, const char *src, const char *dest) {
     printf("\n");
 }
 
-/* DFS helper for route enumeration */
 static void dfs_all_paths(Graph *g, int u, int d,
                           int visited[], int path[], int len)
 {

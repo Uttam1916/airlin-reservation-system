@@ -1,5 +1,3 @@
-/* main.c — fixed, fully working main program */
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -10,11 +8,9 @@
 
 #define ADMIN_PASSWORD "admin123"
 
-/* Forward declarations with correct signatures */
 void user_menu(FlightDB *db, Graph *g, HashTable *ht);
 void admin_menu(FlightDB *db, Graph *g, HashTable *ht);
 
-/* helper to flush leftover input */
 static void flush_stdin(void) {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {}
@@ -23,10 +19,9 @@ static void flush_stdin(void) {
 void test_priority_queue(FlightDB *db, HashTable *ht, Graph *g) {
     printf("\n===== PRIORITY QUEUE TEST =====\n");
 
-    int fid = 1;   // flight 1 always exists in preset
+    int fid = 1;  
     Flight *f = flightdb_get(db, fid);
 
-    // Reduce capacity to just 2 to force waitlist
     f->capacity = 2;
     f->booked   = 0;
     queue_free(&f->waitlist);
@@ -34,13 +29,8 @@ void test_priority_queue(FlightDB *db, HashTable *ht, Graph *g) {
 
     printf("Flight %d capacity forced to 2 seats\n", fid);
 
-    /* Step 1 — Passenger A books first (low demand → low fare → low points) */
-    book_ticket(db, ht, g, fid, 101, "Alice", "999", 30, 0);   // early booker
-    /* Step 2 — Passenger B books next */
+    book_ticket(db, ht, g, fid, 101, "Alice", "999", 30, 0); 
     book_ticket(db, ht, g, fid, 102, "Bob", "999", 30, 0);
-    /* Flight full now */
-
-    /* Step 3 — Two new passengers try booking */
     printf("\n--- Adding Charlie (should get HIGH price → more points) ---\n");
     book_ticket(db, ht, g, fid, 103, "Charlie", "999", 30, 0);
 
@@ -73,7 +63,6 @@ int main(void) {
     Graph g;
     initGraph(&g);
 
-    /* Add cities used by preloaded flights (must exist before preload) */
     addCity(&g, "Delhi");
     addCity(&g, "Mumbai");
     addCity(&g, "Dubai");
@@ -90,7 +79,6 @@ int main(void) {
     addCity(&g, "Sydney");
     addCity(&g, "Singapore");
 
-    /* Add example routes (distances approximate) */
     addRoute(&g, "Delhi", "Mumbai", 1400);
     addRoute(&g, "Mumbai", "Dubai", 1900);
     addRoute(&g, "Dubai", "London", 5500);
@@ -114,18 +102,15 @@ int main(void) {
     }
 
     FlightDB db;
-    /* flightdb_init preloads the 15 flights (reservation.c expects graph to have cities present) */
     flightdb_init(&db, &g);
 
     test_priority_queue(&db, ht, &g); 
-    /* start user menu (which will call admin_menu when needed) */
     user_menu(&db, &g, ht);
 
     ht_free(ht);
     return 0;
 }
 
-/* ----------------- USER MENU ----------------- */
 void user_menu(FlightDB *db, Graph *g, HashTable *ht) {
     for (;;) {
         printf(
@@ -209,8 +194,6 @@ void user_menu(FlightDB *db, Graph *g, HashTable *ht) {
     }
 }
 
-/* ----------------- ADMIN MENU ----------------- */
-/* ----------------- ADMIN MENU (updated: adds "Add city") ----------------- */
 void admin_menu(FlightDB *db, Graph *g, HashTable *ht) {
     for (;;) {
         printf(
