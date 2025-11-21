@@ -1,11 +1,14 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#define MAX_CITIES 50
+#include <limits.h>
+
+#define MAX_CITIES 64
 #define MAX_NAME_LEN 64
 #define MAX_PHONE_LEN 32
-#define INF 999999
+#define MAX_FLIGHTS 256
+#define INF (INT_MAX / 4)
 
 typedef int PassengerID;
 
-#endif
+#endif 
